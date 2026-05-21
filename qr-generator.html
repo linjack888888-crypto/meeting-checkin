@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>簽到 QR Code 產生器</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: #0B1120;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 2rem 1rem;
+    color: #F0F4FF;
+    background-image: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(79,142,247,0.12), transparent);
+  }
+  h1 { font-size: 1.3rem; margin-bottom: 0.4rem; font-weight: 700; }
+  p { font-size: 0.85rem; color: #8899BB; margin-bottom: 1.5rem; text-align:center; }
+  .card {
+    background: #131C2E;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 100%; max-width: 460px;
+    text-align: center;
+  }
+  label { display:block; font-size:0.8rem; color:#8899BB; text-align:left; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.06em; }
+  input {
+    width: 100%;
+    background: #1A2540;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: #F0F4FF;
+    font-size: 0.9rem;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: border-color 0.2s;
+  }
+  input:focus { border-color: #4F8EF7; }
+  .btn {
+    width: 100%;
+    background: linear-gradient(135deg, #4F8EF7, #7C3AED);
+    border: none; border-radius: 10px;
+    color: #fff; font-size: 0.95rem; font-weight: 700;
+    padding: 0.8rem; cursor: pointer; margin-bottom: 1.5rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity:0.9; }
+  #qr-wrap {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    display: inline-block;
+    margin: 0 auto;
+  }
+  #qr-placeholder {
+    width: 200px; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    color: #8899BB; font-size: 0.85rem;
+    border: 2px dashed rgba(255,255,255,0.1);
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+  .hint { font-size:0.78rem; color:#8899BB; margin-top:1rem; line-height:1.6; }
+  .tip-box {
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.2);
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 0.8rem;
+    color: #8899BB;
+    text-align: left;
+    margin-top: 1.25rem;
+    line-height: 1.7;
+  }
+  .tip-box strong { color: #F0F4FF; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>📱 會議簽到 QR Code</h1>
+  <p>輸入簽到頁面網址，產生 QR Code 讓與會人員掃描簽到</p>
+
+  <label>簽到頁面網址</label>
+  <input type="text" id="url-input" placeholder="例：https://yoursite.com/checkin.html" value="" />
+
+  <button class="btn" onclick="generateQR()">產生 QR Code</button>
+
+  <div id="qr-area">
+    <div id="qr-placeholder">請輸入網址後產生</div>
+  </div>
+
+  <div class="tip-box">
+    <strong>📋 使用說明</strong><br>
+    1. 將 <strong>checkin.html</strong> 與 <strong>dashboard.html</strong> 上傳至同一個網站伺服器<br>
+    2. 將 checkin.html 的完整網址輸入上方欄位<br>
+    3. 產生 QR Code 後印出或投影在會議室<br>
+    4. 開啟 dashboard.html 即可即時監看簽到狀況
+  </div>
+
+  <div class="hint" id="qr-hint" style="display:none">
+    ✓ 手機掃描此 QR Code 即可開啟簽到頁面<br>
+    簽到資料會自動同步至 Dashboard
+  </div>
+</div>
+
+<script>
+let qrInstance = null;
+
+function generateQR() {
+  const url = document.getElementById('url-input').value.trim();
+  if (!url) { alert('請輸入簽到頁面網址'); return; }
+
+  const area = document.getElementById('qr-area');
+  area.innerHTML = '<div id="qr-wrap"><div id="qrcode"></div></div>';
+  document.getElementById('qr-hint').style.display = 'block';
+
+  new QRCode(document.getElementById('qrcode'), {
+    text: url,
+    width: 200,
+    height: 200,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(location.search);
+  if (params.get('url')) {
+    document.getElementById('url-input').value = params.get('url');
+    generateQR();
+  }
+});
+</script>
+</body>
+</html>
