@@ -105,7 +105,7 @@
         <option value="法金產品發展部">法金產品發展部</option>
         <option value="法金產品行銷部">法金產品行銷部</option>
         <option value="法人信託部">法人信託部</option>
-        <option value="其他">其他</option>
+        <option value="其他單位">其他單位</option>
       </select>
       <div class="error-tip" id="dept-err">請選擇所屬單位</div>
     </div>
@@ -144,7 +144,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['法金產品發展部', '法金產品行銷部', '法人信託部', '其他'];
+const DEPTS = ['法金產品發展部', '法金產品行銷部', '法人信託部', '其他單位'];
 
 function getCounts(records) {
   const c = {};
