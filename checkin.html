@@ -78,7 +78,7 @@
     font-size: 0.85rem; padding: 0.5rem 1.25rem; cursor: pointer; transition: border-color 0.2s, color 0.2s;
   }
   .success-msg .re-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .counter-strip { display: flex; gap: 6px; margin-top: 1.5rem; }
+  .counter-strip { display: flex; gap: 6px; margin-top: 1.5rem; align-items: flex-end; }
   .dept-pill {
     flex: 1; min-width: 0;
     background: var(--surface2);
@@ -86,12 +86,15 @@
     border-radius: 8px;
     overflow: hidden;
     text-align: center;
+    height: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
-  .dept-pill .bar { height: 3px; width: 100%; }
-  .dept-pill .pill-inner { padding: 6px 4px 8px; }
-  .dept-pill .count { font-size: 1.1rem; font-weight: 700; color: var(--accent); display: block; }
-  .dept-pill .name { font-size: 0.58rem; color: var(--text-muted); margin-top: 3px; display: block;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; }
+  .dept-pill .count { font-size: 1.1rem; font-weight: 700; color: var(--accent); display: block; padding-top: 8px; }
+  .dept-pill .name { font-size: 0.55rem; color: var(--text-muted); margin-top: 3px; display: block;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 3px; }
+  .dept-pill .bar { height: 4px; width: 100%; margin-top: 6px; flex-shrink: 0; }
   .footer { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 1.5rem; opacity: 0.6; }
   .error-tip { font-size: 0.78rem; color: #F87171; margin-top: 4px; display: none; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
