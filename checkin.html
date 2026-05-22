@@ -104,7 +104,7 @@
         <option value="" disabled selected>請選擇單位</option>
         <option value="產品發展部">產品發展部</option>
         <option value="產品行銷部">產品行銷部</option>
-        <option value="法人信託">法人信託</option>
+        <option value="法人信託部">法人信託部</option>
         <option value="其他">其他</option>
       </select>
       <div class="error-tip" id="dept-err">請選擇所屬單位</div>
@@ -144,7 +144,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['產品發展部', '產品行銷部', '法人信託', '其他'];
+const DEPTS = ['產品發展部', '產品行銷部', '法人信託部', '其他'];
 
 function getCounts(records) {
   const c = {};
