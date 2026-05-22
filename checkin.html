@@ -78,14 +78,19 @@
     font-size: 0.85rem; padding: 0.5rem 1.25rem; cursor: pointer; transition: border-color 0.2s, color 0.2s;
   }
   .success-msg .re-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .counter-strip { display: flex; gap: 8px; margin-top: 1.5rem; }
+  .counter-strip { display: flex; gap: 6px; margin-top: 1.5rem; align-items: stretch; }
   .dept-pill {
     flex: 1; background: var(--surface2);
-    border: 1px solid var(--border); border-radius: 8px; padding: 8px 4px 6px; text-align: center;
-    display: flex; flex-direction: column; align-items: center; min-width: 0;
+    border: 1px solid var(--border); border-radius: 8px; padding: 8px 4px 0; text-align: center;
+    display: grid;
+    grid-template-rows: 1.4rem auto 4px;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    min-width: 0; overflow: hidden;
   }
-  .dept-pill .count { font-size: 1.1rem; font-weight: 700; color: var(--accent); }
-  .dept-pill .name { font-size: 0.6rem; color: var(--text-muted); margin-top: 4px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
+  .dept-pill .count { font-size: 1.1rem; font-weight: 700; color: var(--accent); line-height: 1.4rem; }
+  .dept-pill .name { font-size: 0.58rem; color: var(--text-muted); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 4px; }
+  .dept-pill .bar { height: 4px; border-radius: 2px 2px 0 0; background: var(--accent); }
   .footer { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 1.5rem; opacity: 0.6; }
   .error-tip { font-size: 0.78rem; color: #F87171; margin-top: 4px; display: none; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -158,7 +163,7 @@ function renderCounters(records) {
   const counts = getCounts(records);
   const strip = document.getElementById('counter-strip');
   strip.innerHTML = DEPTS.map(d =>
-    `<div class="dept-pill"><div class="count">${counts[d]}</div><div class="name">${d}</div></div>`
+    `<div class="dept-pill"><div class="count">${counts[d]}</div><div class="name">${d}</div><div class="bar"></div></div>`
   ).join('');
 }
 
