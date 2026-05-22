@@ -148,7 +148,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['產品發展部', '產品行銷部', '法人信託', '其他'];
+const DEPTS = ['產品發展部', '產品行銷部', '法人信託部', '其他'];
 const COLORS = ['#4F8EF7', '#7C3AED', '#10B981', '#F59E0B'];
 
 function fmtTime(iso) {
