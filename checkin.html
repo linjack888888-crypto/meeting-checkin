@@ -84,17 +84,16 @@
     background: var(--surface2);
     border: 1px solid var(--border);
     border-radius: 8px;
-    overflow: hidden;
     text-align: center;
-    height: 64px;
+    padding: 8px 4px 10px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
   }
-  .dept-pill .count { font-size: 1.1rem; font-weight: 700; color: var(--accent); display: block; padding-top: 8px; }
-  .dept-pill .name { font-size: 0.55rem; color: var(--text-muted); margin-top: 3px; display: block;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 3px; }
-  .dept-pill .bar { height: 4px; width: 100%; margin-top: 6px; flex-shrink: 0; }
+  .dept-pill .count { font-size: 1.3rem; font-weight: 700; color: var(--accent); display: block; }
+  .dept-pill .name { font-size: 0.5rem; color: var(--text-muted); display: block;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; }
   .footer { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 1.5rem; opacity: 0.6; }
   .error-tip { font-size: 0.78rem; color: #F87171; margin-top: 4px; display: none; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -167,7 +166,7 @@ function renderCounters(records) {
   const counts = getCounts(records);
   const strip = document.getElementById('counter-strip');
   strip.innerHTML = DEPTS.map((d, i) =>
-    `<div class="dept-pill"><div class="bar" style="background:${['#4F8EF7','#7C3AED','#10B981','#F59E0B'][i]}"></div><div class="pill-inner"><span class="count">${counts[d]}</span><span class="name">${d}</span></div></div>`
+    `<div class="dept-pill" style="border-top:3px solid ${['#4F8EF7','#7C3AED','#10B981','#F59E0B'][i]}"><span class="name">${d}</span><span class="count">${counts[d]}</span></div>`
   ).join('');
 }
 
