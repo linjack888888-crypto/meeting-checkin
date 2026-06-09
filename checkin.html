@@ -111,10 +111,10 @@
       <label>所屬單位</label>
       <select id="dept">
         <option value="" disabled selected>請選擇單位</option>
-        <option value="法金產品發展部">法金產品發展部</option>
-        <option value="法金產品行銷部">法金產品行銷部</option>
-        <option value="法人信託部">法人信託部</option>
-        <option value="其他單位">其他單位</option>
+        <option value="台幣現金管理">台幣現金管理</option>
+        <option value="外幣現金管理">外幣現金管理</option>
+        <option value="交易融資產品">交易融資產品</option>
+        <option value="數位產品">數位產品</option>
       </select>
       <div class="error-tip" id="dept-err">請選擇所屬單位</div>
     </div>
@@ -153,7 +153,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['法金產品發展部', '法金產品行銷部', '法人信託部', '其他單位'];
+const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品'];
 
 function getCounts(records) {
   const c = {};
