@@ -148,7 +148,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['法金產品發展部', '法金產品行銷部', '法人信託部', '其他單位'];
+const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品'];
 const COLORS = ['#4F8EF7', '#7C3AED', '#10B981', '#F59E0B'];
 
 function fmtTime(iso) {
