@@ -111,12 +111,12 @@
       <label>所屬單位</label>
       <select id="dept">
         <option value="" disabled selected>請選擇單位</option>
+        <option value="產品發展部">產品發展部</option>
         <option value="台幣現金管理">台幣現金管理</option>
         <option value="外幣現金管理">外幣現金管理</option>
         <option value="交易融資產品">交易融資產品</option>
         <option value="數位產品">數位產品</option>
         <option value="資金計價管理">資金計價管理</option>
-        <option value="產品發展部">產品發展部</option>
       </select>
       <div class="error-tip" id="dept-err">請選擇所屬單位</div>
     </div>
@@ -155,7 +155,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品', '資金計價管理', '產品發展部'];
+const DEPTS = ['產品發展部', '台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品', '資金計價管理'];
 
 function getCounts(records) {
   const c = {};
