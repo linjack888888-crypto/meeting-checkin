@@ -12,6 +12,7 @@
     --border: rgba(255,255,255,0.07); --accent: #4F8EF7;
     --text: #F0F4FF; --text-muted: #8899BB; --radius: 16px;
     --c1: #4F8EF7; --c2: #7C3AED; --c3: #10B981; --c4: #F59E0B;
+    --c5: #EC4899;
   }
   body {
     font-family: 'Noto Sans TC', 'Inter', sans-serif;
@@ -60,18 +61,21 @@
   .dept-card.c1::before { background: var(--c2); }
   .dept-card.c2::before { background: var(--c3); }
   .dept-card.c3::before { background: var(--c4); }
+  .dept-card.c4::before { background: var(--c5); }
   .dept-card .d-name { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 500; }
   .dept-card .d-count { font-size: 2.5rem; font-weight: 700; font-family: 'Inter', sans-serif; font-variant-numeric: tabular-nums; line-height: 1; }
   .dept-card.c0 .d-count { color: var(--c1); }
   .dept-card.c1 .d-count { color: var(--c2); }
   .dept-card.c2 .d-count { color: var(--c3); }
   .dept-card.c3 .d-count { color: var(--c4); }
+  .dept-card.c4 .d-count { color: var(--c5); }
   .dept-card .d-bar-wrap { margin-top: 0.75rem; background: var(--surface2); height: 4px; border-radius: 99px; overflow: hidden; }
   .dept-card .d-bar { height: 100%; border-radius: 99px; transition: width 0.6s cubic-bezier(0.34,1.56,0.64,1); }
   .dept-card.c0 .d-bar { background: var(--c1); }
   .dept-card.c1 .d-bar { background: var(--c2); }
   .dept-card.c2 .d-bar { background: var(--c3); }
   .dept-card.c3 .d-bar { background: var(--c4); }
+  .dept-card.c4 .d-bar { background: var(--c5); }
   .dept-card .d-pct { font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; }
   .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   @media (max-width: 700px) { .panels { grid-template-columns: 1fr; } }
@@ -148,8 +152,8 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品'];
-const COLORS = ['#4F8EF7', '#7C3AED', '#10B981', '#F59E0B'];
+const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品', '資金計價管理'];
+const COLORS = ['#4F8EF7', '#7C3AED', '#10B981', '#F59E0B', '#EC4899'];
 
 function fmtTime(iso) {
   const d = new Date(iso);
