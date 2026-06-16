@@ -115,6 +115,7 @@
         <option value="外幣現金管理">外幣現金管理</option>
         <option value="交易融資產品">交易融資產品</option>
         <option value="數位產品">數位產品</option>
+        <option value="資金計價管理">資金計價管理</option>
       </select>
       <div class="error-tip" id="dept-err">請選擇所屬單位</div>
     </div>
@@ -153,7 +154,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const checkinRef = ref(db, 'checkins');
 
-const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品'];
+const DEPTS = ['台幣現金管理', '外幣現金管理', '交易融資產品', '數位產品', '資金計價管理'];
 
 function getCounts(records) {
   const c = {};
@@ -166,7 +167,7 @@ function renderCounters(records) {
   const counts = getCounts(records);
   const strip = document.getElementById('counter-strip');
   strip.innerHTML = DEPTS.map((d, i) =>
-    `<div class="dept-pill" style="border-top:3px solid ${['#4F8EF7','#7C3AED','#10B981','#F59E0B'][i]}"><span class="name">${d}</span><span class="count">${counts[d]}</span></div>`
+    `<div class="dept-pill" style="border-top:3px solid ${['#4F8EF7','#7C3AED','#10B981','#F59E0B','#EC4899'][i]}"><span class="name">${d}</span><span class="count">${counts[d]}</span></div>`
   ).join('');
 }
 
