@@ -39,6 +39,12 @@
   .header-left h1 { font-size: 1.1rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 10px; }
   .header-right { display: flex; align-items: center; gap: 12px; }
   .last-update { font-size: 0.78rem; color: var(--text-muted); }
+  .export-btn {
+    background: transparent; border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 8px; color: #10B981; font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.78rem; padding: 5px 12px; cursor: pointer; transition: background 0.2s;
+  }
+  .export-btn:hover { background: rgba(16,185,129,0.1); }
   .clear-btn {
     background: transparent; border: 1px solid rgba(248,113,113,0.3);
     border-radius: 8px; color: #F87171; font-family: 'Noto Sans TC', sans-serif;
@@ -102,6 +108,7 @@
   .log-time { font-size: 0.72rem; color: var(--text-muted); font-family: 'Inter', sans-serif; }
   .empty-state { text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.85rem; }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
 <header>
@@ -110,6 +117,7 @@
   </div>
   <div class="header-right">
     <span class="last-update" id="last-update">連線中...</span>
+    <button class="export-btn" onclick="exportExcel()">⬇ 下載 Excel</button>
     <button class="clear-btn" onclick="clearData()">清除資料</button>
   </div>
 </header>
@@ -167,6 +175,7 @@ function fmtTime(iso) {
 function render(snapshot) {
   const data = snapshot.val();
   const records = data ? Object.values(data) : [];
+  window._allRecords = records;
   const total = records.length;
 
   const counts = {};
@@ -228,6 +237,32 @@ function render(snapshot) {
 }
 
 onValue(checkinRef, render);
+
+window.exportExcel = function() {
+  if (!window._allRecords || window._allRecords.length === 0) {
+    alert('目前尚無簽到資料'); return;
+  }
+  const rows = [['編號', '姓名', '單位', '簽到時間']];
+  [...window._allRecords].sort((a,b) => new Date(a.time)-new Date(b.time)).forEach((r, i) => {
+    const d = new Date(r.time);
+    const t = `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    rows.push([i+1, r.name, r.dept, t]);
+  });
+  // Add summary rows
+  rows.push([]);
+  rows.push(['單位統計', '', '', '']);
+  const counts = {};
+  window._allRecords.forEach(r => counts[r.dept] = (counts[r.dept]||0)+1);
+  Object.entries(counts).forEach(([dept, cnt]) => rows.push([dept, cnt+'人', '', '']));
+
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols'] = [{wch:6},{wch:12},{wch:16},{wch:20}];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '簽到名單');
+  const now = new Date();
+  const fname = `簽到名單_${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}.xlsx`;
+  XLSX.writeFile(wb, fname);
+};
 
 window.clearData = function() {
   if (confirm('確定要清除所有簽到資料嗎？')) {
